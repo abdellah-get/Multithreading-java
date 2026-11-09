@@ -1,0 +1,24 @@
+# Build
+target/
+*.class
+*.jar
+*.war
+
+# Documents (sujet, répartition, PDF)
+*.pdf
+*.doc
+*.docx
+*.odt
+
+# Scripts de génération PDF
+build_repartition_*.py
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
