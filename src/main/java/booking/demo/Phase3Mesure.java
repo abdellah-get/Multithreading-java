@@ -1,4 +1,9 @@
-package booking;
+package booking.demo;
+
+
+import booking.engine.PipelineBookingEngine;
+import booking.model.BookingRequest;
+import booking.payment.PaymentGateway;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
@@ -12,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Compare 50 threads plateforme et 10 000 virtual threads.
  *
- * java -cp target/classes booking.Phase3Mesure
+ * java -cp target/classes booking.demo.Phase3Mesure
  */
 public final class Phase3Mesure {
 

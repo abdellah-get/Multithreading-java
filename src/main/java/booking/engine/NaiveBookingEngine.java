@@ -1,5 +1,7 @@
-package booking;
+package booking.engine;
 
+
+import booking.model.*;
 /**
  * Première version, sans protection.
  * book() lit l'état de la place, puis l'écrit plus tard.

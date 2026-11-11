@@ -1,5 +1,7 @@
-package booking;
+package booking.engine;
 
+
+import booking.model.*;
 /**
  * Même réservation que le moteur naïf, avec un seul verrou pour tout le moteur.
  * Un seul thread à la fois peut exécuter book.

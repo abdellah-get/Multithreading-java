@@ -1,4 +1,4 @@
-package booking;
+package booking.demo;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Échange de places avec des verrous croisés : deadlock volontaire.
  *
- * java -cp target/classes booking.DeadlockDemo
+ * java -cp target/classes booking.demo.DeadlockDemo
  *
  * Option : dans un autre terminal pendant le blocage :
  * jcmd <pid> Thread.print

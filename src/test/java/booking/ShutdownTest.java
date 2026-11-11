@@ -1,5 +1,11 @@
 package booking;
 
+
+import booking.engine.PipelineBookingEngine;
+import booking.model.BookingRequest;
+import booking.model.BookingResult;
+import booking.payment.PaymentGateway;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

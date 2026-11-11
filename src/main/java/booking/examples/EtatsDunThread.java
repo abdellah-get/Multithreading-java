@@ -1,3 +1,5 @@
+package booking.examples;
+
 /**
  * Les six états d'un thread, un par un.
  *

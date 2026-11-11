@@ -22,30 +22,22 @@ java -version
 mvn -version
 ```
 
-## Structure du projet
+## Structure du projet (packaging)
+
+Comme en cours (`package` = dossier), le code est découpé en packages :
 
 ```text
 src/main/java/booking/
-  Seat, SeatState, BookingRequest, BookingResult, BookingEngine
-  NaiveBookingEngine              # sans protection (montre le bug)
-  SynchronizedBookingEngine       # un synchronized global
-  LockPerSeatBookingEngine        # un ReentrantLock par place
-  CasBookingEngine                # compareAndSet
-  PaymentGateway                  # paiement lent (50–300 ms, ~10 % d’échecs)
-  PipelineBookingEngine           # FREE → HELD → SOLD + file + expiration
-  Phase3Mesure                    # 50 threads plateforme vs virtual threads
-  PinningDemo                     # synchronized vs ReentrantLock
-  DeadlockDemo                    # deadlock volontaire
-  OrderedSwap                     # correction par ordre des verrous
-  Vitesse                         # mesure des 3 corrections phase 1
+  model/       # Seat, SeatState, BookingRequest, BookingResult,
+               # Confirmed, Rejected, Expired, BookingEngine
+  engine/      # Naive, Synchronized, LockPerSeat, Cas, Pipeline
+  payment/     # PaymentGateway
+  demo/        # Vitesse, Phase3Mesure, PinningDemo, DeadlockDemo, OrderedSwap
+  examples/    # EtatsDunThread, VolatileEtAtomique (révision cours)
 
 src/test/java/booking/
-  CourseNaiveTest                 # preuve de la course (volontairement rouge)
-  ToutesLesVersionsTest           # naïf + 3 corrections
-  SynchronizedBookingTest
-  PipelineBookingTest
-  ShutdownTest
-  OrderedSwapTest
+  CourseNaiveTest, ToutesLesVersionsTest, SynchronizedBookingTest
+  PipelineBookingTest, ShutdownTest, OrderedSwapTest
 ```
 
 ## Les trois phases
@@ -93,7 +85,13 @@ mvn test
 Preuve de la course (ce test **doit échouer**) :
 
 ```bash
-mvn test -Dgroups=course -DexcludedGroups=
+mvn test "-Dgroups=course" "-DexcludedGroups="
+```
+
+Autre commande équivalente :
+
+```bash
+mvn test "-Dtest=CourseNaiveTest" "-DexcludedGroups="
 ```
 
 Pipeline + arrêt propre :
@@ -118,11 +116,11 @@ mvn -q -DskipTests compile
 
 | Commande | Rôle |
 |---|---|
-| `java -cp target/classes booking.Vitesse` | temps des 3 corrections phase 1 |
-| `java -cp target/classes booking.Phase3Mesure` | 50 platform threads vs virtual threads |
-| `java -cp target/classes booking.PinningDemo` | pinning `synchronized` vs `ReentrantLock` |
-| `java -cp target/classes booking.DeadlockDemo` | deadlock volontaire (+ détection intégrée) |
-| `java -cp target/classes booking.OrderedSwap` | même échange, sans deadlock |
+| `java -cp target/classes booking.demo.Vitesse` | temps des 3 corrections phase 1 |
+| `java -cp target/classes booking.demo.Phase3Mesure` | 50 platform threads vs virtual threads |
+| `java -cp target/classes booking.demo.PinningDemo` | pinning `synchronized` vs `ReentrantLock` |
+| `java -cp target/classes booking.demo.DeadlockDemo` | deadlock volontaire (+ détection intégrée) |
+| `java -cp target/classes booking.demo.OrderedSwap` | même échange, sans deadlock |
 
 `DeadlockDemo` reste bloqué après l’affichage du cycle. Quitter avec `Ctrl+C`.
 
@@ -167,16 +165,17 @@ Les virtual threads aident parce que `charge()` **dort**. Si `charge()` était C
 
 | Concept | Où le voir |
 |---|---|
-| Processus / thread, course, check-then-act | `NaiveBookingEngine`, `CourseNaiveTest` |
-| `synchronized` | `SynchronizedBookingEngine` |
-| `ReentrantLock` | `LockPerSeatBookingEngine`, `OrderedSwap` |
-| `compareAndSet` | `CasBookingEngine` |
-| `BlockingQueue`, workers | `PipelineBookingEngine` |
-| Expiration / `ScheduledExecutorService` | `PipelineBookingEngine` |
+| Processus / thread, course, check-then-act | `booking.engine.NaiveBookingEngine`, `CourseNaiveTest` |
+| `synchronized` | `booking.engine.SynchronizedBookingEngine` |
+| `ReentrantLock` | `booking.engine.LockPerSeatBookingEngine`, `booking.demo.OrderedSwap` |
+| `compareAndSet` | `booking.engine.CasBookingEngine` |
+| `BlockingQueue`, workers | `booking.engine.PipelineBookingEngine` |
+| Expiration / `ScheduledExecutorService` | `booking.engine.PipelineBookingEngine` |
 | Shutdown + interruption | `PipelineBookingEngine.shutdown`, `ShutdownTest` |
-| Virtual threads | `Phase3Mesure` |
-| Pinning | `PinningDemo` |
-| Deadlock | `DeadlockDemo`, `OrderedSwap` |
+| Virtual threads | `booking.demo.Phase3Mesure` |
+| Pinning | `booking.demo.PinningDemo` |
+| Deadlock | `booking.demo.DeadlockDemo`, `booking.demo.OrderedSwap` |
+| États d’un thread / `volatile` | `booking.examples.EtatsDunThread`, `VolatileEtAtomique` |
 
 ## Auteurs
 

@@ -1,5 +1,15 @@
 package booking;
 
+
+import booking.engine.CasBookingEngine;
+import booking.engine.LockPerSeatBookingEngine;
+import booking.engine.NaiveBookingEngine;
+import booking.engine.SynchronizedBookingEngine;
+import booking.model.BookingEngine;
+import booking.model.BookingRequest;
+import booking.model.BookingResult;
+import booking.model.Confirmed;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

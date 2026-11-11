@@ -1,4 +1,7 @@
-package booking;
+package booking.demo;
+
+
+import booking.payment.PaymentGateway;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -6,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * En Java 21, dormir dans un synchronized colle la virtual thread à son carrier.
  * Avec ReentrantLock, on relâche avant le paiement : pas de pinning pendant charge().
  *
- * java -cp target/classes booking.PinningDemo
+ * java -cp target/classes booking.demo.PinningDemo
  */
 public final class PinningDemo {
 

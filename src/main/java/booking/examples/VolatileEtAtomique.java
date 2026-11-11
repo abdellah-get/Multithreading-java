@@ -1,3 +1,5 @@
+package booking.examples;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

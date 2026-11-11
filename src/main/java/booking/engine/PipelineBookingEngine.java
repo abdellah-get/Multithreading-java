@@ -1,5 +1,8 @@
-package booking;
+package booking.engine;
 
+
+import booking.model.*;
+import booking.payment.PaymentGateway;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
@@ -58,6 +61,7 @@ public final class PipelineBookingEngine implements BookingEngine {
             workers.submit(() -> bouclePaiement());
         }
         rapport = new Thread(() -> afficher(), "rapport");
+        rapport.setDaemon(true);
         rapport.start();
     }
 

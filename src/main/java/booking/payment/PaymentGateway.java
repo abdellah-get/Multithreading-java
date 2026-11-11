@@ -1,4 +1,4 @@
-package booking;
+package booking.payment;
 
 import java.util.concurrent.ThreadLocalRandom;
 

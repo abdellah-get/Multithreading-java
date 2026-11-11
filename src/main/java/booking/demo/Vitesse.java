@@ -1,4 +1,11 @@
-package booking;
+package booking.demo;
+
+
+import booking.engine.CasBookingEngine;
+import booking.engine.LockPerSeatBookingEngine;
+import booking.engine.SynchronizedBookingEngine;
+import booking.model.BookingEngine;
+import booking.model.BookingRequest;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -6,7 +13,7 @@ import java.util.concurrent.Executors;
 
 /**
  * Mesure seulement les appels à book, pas la création des threads.
- * Lancer : java -cp target/classes booking.Vitesse
+ * Lancer : java -cp target/classes booking.demo.Vitesse
  */
 public final class Vitesse {
 

@@ -1,5 +1,7 @@
-package booking;
+package booking.engine;
 
+
+import booking.model.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**

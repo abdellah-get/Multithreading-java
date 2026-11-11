@@ -11,6 +11,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
+        <!-- Par défaut on exclut le test de course (volontairement rouge). -->
+        <groups></groups>
+        <excludedGroups>course</excludedGroups>
     </properties>
 
     <dependencies>
@@ -34,7 +37,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.2</version>
                 <configuration>
-                    <excludedGroups>course</excludedGroups>
+                    <groups>${groups}</groups>
+                    <excludedGroups>${excludedGroups}</excludedGroups>
                 </configuration>
             </plugin>
         </plugins>

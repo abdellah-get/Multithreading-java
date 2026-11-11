@@ -1,4 +1,4 @@
-package booking;
+package booking.demo;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Même échange, sans deadlock.
  * On prend toujours d'abord le plus petit numéro de place.
  *
- * java -cp target/classes booking.OrderedSwap
+ * java -cp target/classes booking.demo.OrderedSwap
  */
 public final class OrderedSwap {
 
@@ -36,7 +36,7 @@ public final class OrderedSwap {
      * Alice (0,1) et Bob (1,0) prennent tous les deux 0 puis 1.
      * L'attente circulaire devient impossible.
      */
-    void echangerOrdonne(int from, int to) {
+    public void echangerOrdonne(int from, int to) {
         int first = Math.min(from, to);
         int second = Math.max(from, to);
 
@@ -62,7 +62,7 @@ public final class OrderedSwap {
     /**
      * Variante avec tryLock : si le second verrou manque, on lâche le premier et on réessaie.
      */
-    boolean echangerTryLock(int from, int to) throws InterruptedException {
+    public boolean echangerTryLock(int from, int to) throws InterruptedException {
         int first = Math.min(from, to);
         int second = Math.max(from, to);
         while (!Thread.currentThread().isInterrupted()) {

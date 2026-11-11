@@ -1,5 +1,11 @@
 package booking;
 
+
+import booking.engine.NaiveBookingEngine;
+import booking.model.BookingRequest;
+import booking.model.BookingResult;
+import booking.model.Confirmed;
+
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
